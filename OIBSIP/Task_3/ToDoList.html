@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo List App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      display: flex;
+    }
+    .left-side {
+      flex: 1;
+      padding: 30px;
+      background-color: #bc0e0e;
+    }
+    .right-side {
+      flex: 1;
+      padding: 20px;
+    }
+    .task-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .task-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .task-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .task-item .task-name {
+      margin-left: 10px;
+    }
+    .task-item.red {
+      color: red;
+    }
+    .task-item.black {
+      color: rgb(246, 233, 233);
+    }
+    .task-item.white {
+      color: white;
+      background-color: black;
+      padding: 5px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body style="background-color: rgb(40, 234, 211);">
+  <div class="container">
+    <div class="left-side">
+      <input type="text" id="taskInput" class="task-input" placeholder="Enter a task">
+      <button id="addTaskBtn">Add Task</button>
+    </div>
+    <div class="right-side">
+      <ul id="taskList" class="task-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    // Get the necessary DOM elements
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+
+    // Add event listener to the Add Task button
+    addTaskBtn.addEventListener('click', addTask);
+
+    function addTask() {
+      const taskName = taskInput.value.trim();
+
+      if (taskName !== '') {
+        // Create a new list item
+        const taskItem = document.createElement('li');
+        taskItem.className = 'task-item';
+
+        // Generate a random number between 1 and 3
+        const randomColor = Math.floor(Math.random() * 3) + 1;
+
+        if (randomColor === 1) {
+          taskItem.classList.add('red');
+        } else if (randomColor === 2) {
+          taskItem.classList.add('black');
+        } else {
+          taskItem.classList.add('white');
+        }
+
+        // Create a span element for the task name
+        const taskNameSpan = document.createElement('span');
+        taskNameSpan.className = 'task-name';
+        taskNameSpan.textContent = taskName;
+
+        // Append the task name span to the task item
+        taskItem.appendChild(taskNameSpan);
+
+        // Append the task item to the task list
+        taskList.appendChild(taskItem);
+
+        // Clear the task input
+        taskInput.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
